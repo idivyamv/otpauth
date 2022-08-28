@@ -1,0 +1,47 @@
+<div class="container bodyform">               
+    <div class="row justify-content-center mt-5 ansBox">
+        <div class="col-lg-6 ">
+            <div class="boxWraper  mt-5">
+                <h6>Kindly fill up the below details</h6>
+                <div class="box">
+                    <fieldset *ngIf="!showform">
+                        <span *ngIf="isOTPgenerated">something went wrong. Please try again</span>
+                    <form (ngSubmit)="signupForm.form.valid && usersubmit()"  #signupForm="ngForm" class="row g-3 needs-validation" novalidate>                                     
+                        <div class="col-md-8">
+                            <label for="email" class="form-label">Email</label>
+                            <div class="input-group has-validation">                            
+                                <input type="email" class="form-control" pattern="^[a-z0-9.%+]+@[a-z0-9.-]+\.[a-z]{2,4}"  [(ngModel)]="Visitor.email" name="email" #email="ngModel" [class.is-invalid]="email.invalid && signupForm.submitted" required>
+                                <div class="invalid-feedback">
+                                Please enter a valid Email ID.
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form> 
+                    </fieldset> 
+                    <fieldset *ngIf="showform">
+                        <form (ngSubmit)="otpForm.form.valid && checkOTP()"  #otpForm="ngForm" class="row g-3 needs-validation" novalidate>                                     
+                            <div class="col-md-8">
+                                <label for="email" class="form-label">Enter the OTP send to your email</label>
+                                <div class="input-group has-validation">                            
+                                    <input type="text" class="form-control otp_input"  maxlength="4" pattern="[0-9]*" autocomplete="off"  [(ngModel)]="OTP.otp" name="otp" #otp="ngModel" [class.is-invalid]="otp.invalid && otpForm.submitted" required>
+                                    <div class="invalid-feedback">
+                                    Please enter valid OTP.
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="alert alert-danger" *ngIf="otpForm.submitted && !isOTPvalid">
+                                Invalid OTP entered.
+                            </div>                                                   
+                            <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form> 
+                    </fieldset> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
